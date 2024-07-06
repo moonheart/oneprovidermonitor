@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-OneProviderMonitor-98C0BEF0-BCA4-46DB-8D82-267381D9F3C5</UserSecretsId>
+        <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AngleSharp" Version="1.1.2" />
+        <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.832" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.10.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+        <PackageReference Include="AutoCtor" Version="2.1.0" />
+        <PackageReference Include="Injectio" Version="3.1.0" PrivateAssets="all"/>
+        <PackageReference Include="Refit" Version="7.1.2" />
+        <PackageReference Include="Telegram.Bot" Version="19.0.0" />
+        <PackageReference Include="Telegram.Bot.Extensions.Markup" Version="1.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+</Project>
