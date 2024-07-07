@@ -56,16 +56,16 @@ public partial class MonitorBot
         return sizeInGb >= 1024 ? $"{sizeInGb / 1024}GB" : $"{sizeInGb}MB";
     }
     
-    public async Task SendPriceChangedNotification(Server server, Server oldServer)
+    public async Task SendPriceChangedNotification(Server newServer, Server oldServer)
     {
         var sb = new StringBuilder();
         sb.AppendLine("*Price Changed*");
         sb.Append("*Old Price*").AppendLine(Escape($"€{oldServer.EurPricePromo}"));
-        BuildServerDesc(server, sb);
+        BuildServerDesc(newServer, sb);
 
         var msg = sb.ToString();
 
-        var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{server.Id}" });
+        var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{newServer.Id}" });
         // var chat = await _bot.GetChatAsync(_monitorOption.Value.TelegramChannel);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,

@@ -34,18 +34,18 @@ public partial class MonitorJob : IJob
                 servers.AddRange(ParseData(data));
             }
 
-            foreach (var server in servers.Where(d => d.IsDedicated))
+            foreach (var newServer in servers.Where(d => d.IsDedicated))
             {
-                var existServer = await _freeSql.Select<Server>().Where(d => d.Id == server.Id).FirstAsync();
+                var existServer = await _freeSql.Select<Server>().Where(d => d.Id == newServer.Id).FirstAsync();
                 if (existServer == null)
                 {
-                    await _monitorBot.SendNewServerNotification(server);
+                    await _monitorBot.SendNewServerNotification(newServer);
                     continue;
                 }
 
-                if (existServer.EurPricePromo != server.EurPricePromo)
+                if ((newServer.EurPricePromo - existServer.EurPricePromo) / existServer.EurPricePromo >= 0.01m)
                 {
-                    await _monitorBot.SendPriceChangedNotification(server, existServer);
+                    await _monitorBot.SendPriceChangedNotification(newServer, existServer);
                 }
             }
 
