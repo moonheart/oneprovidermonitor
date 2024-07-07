@@ -19,7 +19,7 @@ public partial class MonitorBot
 {
     private readonly ITelegramBotClient _bot;
     private readonly IOptions<MonitorOption> _monitorOption;
-    private readonly ILogger<MonitorOption> _logger;
+    private readonly ILogger<MonitorBot> _logger;
 
     [AutoPostConstruct]
     private void Initialize()
@@ -58,15 +58,16 @@ public partial class MonitorBot
     
     public async Task SendPriceChangedNotification(Server newServer, Server oldServer)
     {
+        _logger.LogInformation($"Price changed {newServer.Id} {newServer.CpuModel} {oldServer.EurPricePromo} -> {newServer.EurPricePromo}");
         var sb = new StringBuilder();
-        sb.AppendLine("*Price Changed*");
+        sb.AppendLine("📈 *Price Changed*");
         sb.Append("*Old Price*").AppendLine(Escape($"€{oldServer.EurPricePromo}"));
         BuildServerDesc(newServer, sb);
 
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{newServer.Id}" });
-        // var chat = await _bot.GetChatAsync(_monitorOption.Value.TelegramChannel);
+        await Task.Delay(50);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
@@ -76,14 +77,15 @@ public partial class MonitorBot
 
     public async Task SendNewServerNotification(Server server)
     {
+        _logger.LogInformation($"New server {server.Id} {server.CpuModel}");
         var sb = new StringBuilder();
-        sb.AppendLine("*New Server*");
+        sb.AppendLine("🆕 *New Server*");
         BuildServerDesc(server, sb);
 
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{server.Id}" });
-        // var chat = await _bot.GetChatAsync(_monitorOption.Value.TelegramChannel);
+        await Task.Delay(50);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
