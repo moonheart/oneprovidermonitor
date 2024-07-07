@@ -34,7 +34,7 @@ public partial class MonitorJob : IJob
                 servers.AddRange(ParseData(data));
             }
 
-            foreach (var server in servers)
+            foreach (var server in servers.Where(d => d.IsDedicated))
             {
                 var existServer = await _freeSql.Select<Server>().Where(d => d.Id == server.Id).FirstAsync();
                 if (existServer == null)
