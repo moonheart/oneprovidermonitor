@@ -43,7 +43,7 @@ public partial class MonitorJob : IJob
                     continue;
                 }
 
-                if ((newServer.EurPricePromo - existServer.EurPricePromo) / existServer.EurPricePromo >= 0.01m)
+                if (existServer.EurPricePromo != 0 && (newServer.EurPricePromo - existServer.EurPricePromo) / existServer.EurPricePromo >= 0.01m)
                 {
                     await _monitorBot.SendPriceChangedNotification(newServer, existServer);
                 }
