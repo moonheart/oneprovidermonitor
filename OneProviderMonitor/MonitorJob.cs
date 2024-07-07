@@ -43,7 +43,7 @@ public partial class MonitorJob : IJob
                     continue;
                 }
 
-                if (existServer.UsdPricePromo != server.UsdPricePromo)
+                if (existServer.EurPriceNormal != server.EurPricePromo)
                 {
                     await _monitorBot.SendPriceChangedNotification(server, existServer);
                 }

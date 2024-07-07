@@ -60,7 +60,7 @@ public partial class MonitorBot
     {
         var sb = new StringBuilder();
         sb.AppendLine("*Price Changed*");
-        sb.Append("*Old Price*").AppendLine(Escape($"${oldServer.UsdPricePromo}"));
+        sb.Append("*Old Price*").AppendLine(Escape($"€{oldServer.EurPricePromo}"));
         BuildServerDesc(server, sb);
 
         var msg = sb.ToString();
@@ -105,11 +105,11 @@ public partial class MonitorBot
         sb.Append("*HDD*:\t").AppendLine(Escape(server.StorageHddMinAmount == server.StorageHddMaxAmount
             ? $"{Escape(FormatStorage(server.StorageHddMinAmount))}"
             : $"{FormatStorage(server.StorageHddMinAmount)}~{FormatStorage(server.StorageHddMaxAmount)}"));
-        sb.Append("*Price*:\t").AppendLine(server.UsdPriceNormal == server.UsdPricePromo
-            ? $"${Escape(server.UsdPriceNormal.ToString("N2"))}"
-            : $"~${Escape(server.UsdPriceNormal.ToString("N2"))}~ ${Escape(server.UsdPricePromo.ToString("N2"))}");
-        sb.Append("*Setup Fee*:\t").AppendLine(server.UsdPriceSetup == server.UsdPriceSetupPromo
-            ? $"${Escape(server.UsdPriceSetup.ToString("N2"))}"
-            : $"~${Escape(server.UsdPriceSetup.ToString("N2"))}~ ${Escape(server.UsdPriceSetupPromo.ToString("N2"))}");
+        sb.Append("*Price*:\t").AppendLine(server.EurPriceNormal == server.EurPricePromo
+            ? $"€{Escape(server.EurPriceNormal.ToString("N2"))}"
+            : $"~€{Escape(server.EurPriceNormal.ToString("N2"))}~ €{Escape(server.EurPricePromo.ToString("N2"))}");
+        sb.Append("*Setup Fee*:\t").AppendLine(server.EurPriceSetup == server.EurPriceSetupPromo
+            ? $"€{Escape(server.EurPriceSetup.ToString("N2"))}"
+            : $"~€{Escape(server.EurPriceSetup.ToString("N2"))}~ €{Escape(server.EurPriceSetupPromo.ToString("N2"))}");
     }
 }
