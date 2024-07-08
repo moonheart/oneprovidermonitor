@@ -98,15 +98,10 @@ public partial class MonitorBot
         sb.Append("*Location*:\t").AppendLine(Escape($"{server.LocationName} {server.LocationCode}"));
         sb.Append("*CPU*:\t").AppendLine(Escape($"{server.CpuMaker} {server.CpuModel} {server.CpuSpeed}GHz {server.CpuCore}c/{server.CpuThread}t"));
         sb.Append("*RAM*:\t").AppendLine(Escape($"{FormatRam(server.RamAmount)}"));
-        string bandwidthLimit = server.BandwidthLimit == 0 ? "Unlimited" : (server.BandwidthLimit / 1024.0).ToString("N1");
+        string bandwidthLimit = server.BandwidthLimit == 0 ? "Unlimited" : (server.BandwidthLimit / 1024.0).ToString("N1") + "TB";
         string bandwidthSpeed = server.BandwidthSpeed >= 1024 ? (server.BandwidthSpeed / 1024.0).ToString("N1") + " Gbps" : server.BandwidthSpeed + " Mbps";
-        sb.Append("*Bandwidth*:\t").AppendLine(Escape($"{bandwidthLimit}TB @ {bandwidthSpeed}"));
-        sb.Append("*SSD*:\t").AppendLine(Escape(server.StorageSsdMinAmount == server.StorageSsdMaxAmount
-            ? $"{Escape(FormatStorage(server.StorageSsdMinAmount))}"
-            : $"{FormatStorage(server.StorageSsdMinAmount)}~{FormatStorage(server.StorageSsdMaxAmount)}"));
-        sb.Append("*HDD*:\t").AppendLine(Escape(server.StorageHddMinAmount == server.StorageHddMaxAmount
-            ? $"{Escape(FormatStorage(server.StorageHddMinAmount))}"
-            : $"{FormatStorage(server.StorageHddMinAmount)}~{FormatStorage(server.StorageHddMaxAmount)}"));
+        sb.Append("*Bandwidth*:\t").AppendLine(Escape($"{bandwidthLimit} @ {bandwidthSpeed}"));
+        sb.Append("*Storage*:\t").AppendLine(Escape(server.StorageJson));
         sb.Append("*Price*:\t").AppendLine(server.EurPriceNormal == server.EurPricePromo
             ? $"€{Escape(server.EurPriceNormal.ToString("N2"))}"
             : $"~€{Escape(server.EurPriceNormal.ToString("N2"))}~ €{Escape(server.EurPricePromo.ToString("N2"))}");

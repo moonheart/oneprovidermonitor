@@ -98,7 +98,10 @@ public partial class MonitorJob : IJob
             int? maxStorageSsdAmount = null;
             int? maxStorageHddAmount = null;
             // 2× 480 GB (SSD SATA) and 10× 14 TB (HDD SATA)
-            var drivesTextOr = tr.QuerySelector("div.field-item-list--drives")?.Text().Trim();
+            var storage = tr.QuerySelector("div.field-item-list--drives");
+            storage?.QuerySelector("span.drive-bundle-id")?.Remove();
+            var drivesTextOr = storage?.Text().Trim();
+            server.StorageJson = Regex.Replace(Regex.Replace(drivesTextOr ?? "", @"\s+", " "), @"(and|or)$", "").Trim();
             foreach (var drivesTextAnd in drivesTextOr?.Split("or", StringSplitOptions.RemoveEmptyEntries) ?? [])
             {
                 var ssdAmount = 0;
@@ -121,7 +124,7 @@ public partial class MonitorJob : IJob
                         {
                             ssdAmount += size * count;
                         }
-                        else if (type.Contains("HDD"))
+                        else
                         {
                             hddAmount += size * count;
                         }
