@@ -102,7 +102,7 @@ public partial class MonitorBot
         string bandwidthSpeed = server.BandwidthSpeed >= 1024 ? (server.BandwidthSpeed / 1024.0).ToString("N1") + " Gbps" : server.BandwidthSpeed + " Mbps";
         sb.Append("*Bandwidth*:\t").AppendLine(Escape($"{bandwidthLimit} @ {bandwidthSpeed}"));
         sb.Append("*Storage*:\t").AppendLine(Escape(server.StorageJson));
-        sb.Append("*Price*:\t").AppendLine(server.EurPriceNormal == server.EurPricePromo
+        sb.Append("*Price*:\t").AppendLine(server.EurPriceNormal == server.EurPricePromo || server.EurPricePromo == 0
             ? $"€{Escape(server.EurPriceNormal.ToString("N2"))}"
             : $"~€{Escape(server.EurPriceNormal.ToString("N2"))}~ €{Escape(server.EurPricePromo.ToString("N2"))}");
         sb.Append("*Setup Fee*:\t").AppendLine(server.EurPriceSetup == server.EurPriceSetupPromo
