@@ -50,18 +50,18 @@ public partial class MonitorBot
     {
         return sizeInGb >= 1024 ? $"{sizeInGb / 1024}TB" : $"{sizeInGb}GB";
     }
-    
+
     private string FormatRam(int sizeInGb)
     {
         return sizeInGb >= 1024 ? $"{sizeInGb / 1024}GB" : $"{sizeInGb}MB";
     }
-    
+
     public async Task SendPriceChangedNotification(Server newServer, Server oldServer)
     {
         _logger.LogInformation($"Price changed {newServer.Id} {newServer.CpuModel} {oldServer.EurPricePromo} -> {newServer.EurPricePromo}");
         var sb = new StringBuilder();
-        sb.AppendLine("📈 *Price Changed*");
-        sb.Append("*Old Price*").AppendLine(Escape($"€{oldServer.EurPricePromo}"));
+        sb.Append(newServer.EurPricePromo > oldServer.EurPricePromo ? "📈 *Price Increased*" : "📉 *Price Dropped*")
+            .AppendLine($"€{oldServer.EurPricePromo} -> €{newServer.EurPricePromo}");
         BuildServerDesc(newServer, sb);
 
         var msg = sb.ToString();
