@@ -61,7 +61,7 @@ public partial class MonitorBot
         _logger.LogInformation($"Price changed {newServer.Id} {newServer.CpuModel} {oldServer.EurPricePromo} -> {newServer.EurPricePromo}");
         var sb = new StringBuilder();
         sb.Append(newServer.EurPricePromo > oldServer.EurPricePromo ? "📈 *Price Increased*" : "📉 *Price Dropped*")
-            .AppendLine($"€{oldServer.EurPricePromo} -> €{newServer.EurPricePromo}");
+            .AppendLine(Escape($"€{oldServer.EurPricePromo} -> €{newServer.EurPricePromo}"));
         BuildServerDesc(newServer, sb);
 
         var msg = sb.ToString();
