@@ -67,7 +67,7 @@ public partial class MonitorBot
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{newServer.Id}" });
-        await Task.Delay(50);
+        await Task.Delay(1000);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
@@ -85,7 +85,7 @@ public partial class MonitorBot
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{server.Id}" });
-        await Task.Delay(50);
+        await Task.Delay(1000);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
