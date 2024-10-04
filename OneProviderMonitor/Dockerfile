@@ -1,13 +1,12 @@
-﻿FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["OneProviderMonitor/OneProviderMonitor.csproj", "OneProviderMonitor/"]
-RUN dotnet restore "OneProviderMonitor/OneProviderMonitor.csproj"
 COPY . .
+RUN dotnet restore "OneProviderMonitor/OneProviderMonitor.csproj"
 WORKDIR "/src/OneProviderMonitor"
 RUN dotnet build "OneProviderMonitor.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

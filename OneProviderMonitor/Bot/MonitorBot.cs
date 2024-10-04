@@ -66,13 +66,12 @@ public partial class MonitorBot
         _logger.LogInformation($"Price changed {newServer.Id} {newServer.CpuModel} {oldServer.EurPricePromo} -> {newServer.EurPricePromo}");
         var sb = new StringBuilder();
         sb.Append(newServer.EurPricePromo > oldServer.EurPricePromo ? "📈 *Price Increased*" : "📉 *Price Dropped*")
-            .AppendLine($"€{oldServer.EurPricePromo} -> €{newServer.EurPricePromo}");
+            .AppendLine(Escape($"€{oldServer.EurPricePromo} -> €{newServer.EurPricePromo}"));
         BuildServerDesc(newServer, sb);
 
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{newServer.Id}" });
-        await Task.Delay(50);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
@@ -90,7 +89,6 @@ public partial class MonitorBot
         var msg = sb.ToString();
 
         var replyMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton("Go Conf") { Url = $"https://oneprovider.com/configure/dediconf/{server.Id}" });
-        await Task.Delay(50);
         var sentMessage = await _bot.SendTextMessageAsync(
             _monitorOption.Value.TelegramChannel,
             msg,
