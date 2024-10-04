@@ -58,6 +58,11 @@ public partial class MonitorBot
 
     public async Task SendPriceChangedNotification(Server newServer, Server oldServer)
     {
+        if (newServer.EurPricePromo > oldServer.EurPricePromo)
+        {
+            return;
+        }
+        
         _logger.LogInformation($"Price changed {newServer.Id} {newServer.CpuModel} {oldServer.EurPricePromo} -> {newServer.EurPricePromo}");
         var sb = new StringBuilder();
         sb.Append(newServer.EurPricePromo > oldServer.EurPricePromo ? "📈 *Price Increased*" : "📉 *Price Dropped*")
